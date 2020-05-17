@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <conio.h>
 // It's a two player game
 // We need two variables to store their names and run a loop to ask for the player to enter their move turn by turn
 // We need another variable to store the turn to see which player is to enter the move
@@ -145,3 +147,106 @@ void putintobox(char arr[3][3], char ch, int box){
         break;
     }
 }
+
+//Function to show the curson on the box specified
+//uses the position to check the coordinates
+void gotobox(int box){
+    switch(box){
+        case 1: (_x+1,_y-1); break;
+        case 2: (_x+5,_y-1); break;
+        case 3: (_x+9,_y-1); break;
+        case 4: (_x+1,_y+1); break;
+        case 5: (_x+5,_y+1); break;
+        case 6: (_x+9,_y+1); break;
+        case 7: (_x+1,_y+3); break;
+        case 8: (_x+5,_y+3); break;
+        case 9: (_x+9,_y+3); break;
+    }
+}
+
+//Function to handle the navigation
+int navigate(char arr[3][3], int box, int player, int key){
+    switch(key){
+        case UPARROW: if( (box!=1) || (box != 2) || (box!=3) ){
+            box-=3; if(box<1) box =1; gotobox(box);
+        }
+        break;
+        case DOWNARROW: if( (box!=7) || (box != 8) || (box!=9) ){
+            box+=3; if(box>9) box =9; gotobox(box);
+        }
+        break;
+        case LEFTARROW: if( (box!=1) || (box != 4) || (box!=7) ){
+            box--; if(box<1) box =1; gotobox(box);
+        }
+        break;
+        case RIGHTARROW: if( (box!=3) || (box != 6) || (box!=9) ){
+            box++; if(box>9) box =9; gotobox(box);
+        }
+        break;
+        case ENTER: if( player == 0 ){
+            putintobox(arr,'O', box);
+        }
+        else if(player == 1){
+            putintobox(arr, 'X',box);
+        }
+        break;
+    }
+    return box;
+}
+
+int checkforwin(char arr[3][3]){
+    int w = 0;
+    /* 0,0  0,1  0,2
+       1,0  1,1  1,2
+       2,0  2,1  2,2 */
+       //rows
+       if((arr[0][0] == arr[0][1]) && (arr[0][1] == arr[0][2])) w =1;
+       else if((arr[1][0] == arr[1][1]) && (arr[1][1] == arr[1][2])) w =1;
+       else if((arr[2][0] == arr[2][1]) && (arr[2][1] == arr[2][2])) w =1;
+
+       //coloums
+       else if((arr[0][0] == arr[1][0]) && (arr[1][0] == arr[2][0])) w =1;
+       else if((arr[0][1] == arr[1][1]) && (arr[1][1] == arr[2][1])) w =1;
+       else if((arr[0][2] == arr[1][2]) && (arr[1][2] == arr[2][2])) w =1;
+
+       //diagonals
+       else if((arr[0][0] == arr[1][1]) && (arr[1][1] == arr[2][2])) w =1;
+       else if((arr[0][2] == arr[1][1]) && (arr[1][1] == arr[2][0])) w =1;
+
+       return w;
+}
+
+int boxesleft(char a[3][3]){
+    int i,j,boxesleft=9;
+    for(i=0;i<3;i++){
+        for(j=0;j<3;j++){
+            if((a[i][j] == 'X') || (a[i][j] == 'O')){
+                boxesleft--;
+            }
+        }
+    }
+    return boxesleft;
+}
+
+int main(){
+    showframe(12,25);
+    printf("\nPlayer 1, enter your name:"); fgets(name[0],30, stdin);
+    printf("\nPlayer 2, enter your name:"); fgets(name[1],30, stdin);
+
+    printf("\n%s, you take O", name[0]);
+    printf("\n%s, you take X", name[1]); getch();
+
+    clrscr();
+
+    do{
+        while(!enter){
+            if(khbit())
+            ch = getch();
+            switch(ch){
+                case UPARROW: box = navigate(a[3][3], box, player, UPARROW);
+                case DOWNARROW: box = navigate(a[3][3], box, player, UPARROW);
+                case UPARROW: box = navigate(a[3][3], box, player, UPARROW);
+                case UPARROW: box = navigate(a[3][3], box, player, UPARROW);
+            }
+        }
+    }
