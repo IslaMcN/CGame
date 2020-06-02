@@ -239,7 +239,7 @@ int main(){
     clrscr();
 
     do{
-        while(!enter){
+        while(!enter && !quit){
             if(khbit())
             ch = getch();
             switch(ch){
@@ -249,4 +249,30 @@ int main(){
                 case UPARROW: box = navigate(a[3][3], box, player, UPARROW);
             }
         }
+        if(quit) break;
+        if(chance === 0){
+            putintobox(arr,box,'O');
+            box = 1;
+        }
+        else if(chance === 1){
+            putintobox(arr,box,'X');
+            box = 1;
+        }
+        if((win = checkforwin(arr))===1){
+            winner = chance;
+            if(chance === 1){
+                chance = 0;
+            }
+            else chance = 1;
+        }
+        enter = 0;
+        turns++;
+        if(!boxesleft(arr)){
+            movefinished = 1;
+        }
+        if(!win) && (turns == 9) && (movesfinished){
+            break;
+        }
+        
     }
+}
