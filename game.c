@@ -275,4 +275,32 @@ int main(){
         }
         
     }
+    if(win){
+        gotoxy(22,22);
+        textbackground(4);
+        textcolor(15);
+        if(winner == 0){
+            cprintf("Congrats! %s won the game!", player[0]);
+
+        }
+        else{
+            cprintf("Congrats! %s won the game!", player[1]);
+        }
+    }
+    else if(quit){
+        gotoxy(10,22);
+        textbackground(4);
+        textcolor(15);
+        cprintf("That was fun! See you later.\n Press any key to exit. . .\n\n");
+        getch();
+        return 1;
+    }
+    else if((!win) && (turns==9) && (movesfinished)){
+        gotoxy(22,22);
+        printf("Y'all are losers. \n It's a draw.\n");
+    }
+    printf("Do you want to play again?? (Y/N):\n");
+    ch = getch();
+    while(ch=='Y'||ch=='y');
+    return 0;
 }
