@@ -229,38 +229,83 @@ int boxesleft(char a[3][3]){
 }
 
 int main(){
-    showframe(12,25);
-    printf("\nPlayer 1, enter your name:"); fgets(name[0],30, stdin);
-    printf("\nPlayer 2, enter your name:"); fgets(name[1],30, stdin);
+    char arr[3][3];
+    char player[3][30],O_OR_X[2],ch;
+    int x,y,turns,chance,enter,box,win,quit,winner;
+    int movesfinished = 0;
 
-    printf("\n%s, you take O", name[0]);
-    printf("\n%s, you take X", name[1]); getch();
-
-    clrscr();
-
+    O_OR_X[0] = 'O'; O_OR_X[1]="X";
     do{
-        while(!enter && !quit){
-            if(khbit())
-            ch = getch();
-            switch(ch){
-                case UPARROW: box = navigate(a[3][3], box, player, UPARROW);
-                case DOWNARROW: box = navigate(a[3][3], box, player, UPARROW);
-                case UPARROW: box = navigate(a[3][3], box, player, UPARROW);
-                case UPARROW: box = navigate(a[3][3], box, player, UPARROW);
+        textbackground(7); textcolor(0);
+        clrscr();
+
+        _x = 35; _y = 12;
+        x = _x; y =_y;
+        showframe(x,y);
+        showbox('O', 1);
+        showbox('X', 2);
+        showbox('O', 3);
+        showbox('X', 4);
+        showbox('O', 5);
+        showbox('X', 6);
+        showbox('O', 7);
+        showbox('X', 8);
+        showbox('O', 9);
+
+        gotoxy(2,18);
+        printf("Welcome to Tic Tac Toe");
+        printf("\n Rules are simple. Navigate with arrow keys [%c %c %c %c] and hit enter.", 30, 31, 17, 16);
+        printf("\n If you try to overwrite a box, then your chance will be passed on.")
+        fillrandom(arr);
+
+        printf("\nPlayer 1, enter your name:"); gets(player[0]);
+        printf("\nPlayer 2, enter your name:"); gets(player[1]);
+        printf("\n%s, you take O", name[0]);
+        printf("\n%s, you take X", name[1]);
+        printf("Let's begin (press any key)"); getch();
+
+        turns = 0;
+        chance = 0;
+        enter = 0;
+        box = 1;
+        win = 0;
+        quit = 0;
+        winner = 0;
+
+        clrscr();
+        showframe(x,y);
+
+        while((!win)){
+            gotoxy(2,20);
+            printf("%s(%c), its your chance.", player[chance], O_OR_X[chance]);
+            while(!enter && !quit){
+                if(khbit())
+                ch = getch();
+                switch(ch){
+                    case UPARROW: box = navigate(a[3][3], box, player, UPARROW);
+                    case DOWNARROW: box = navigate(a[3][3], box, player, UPARROW);
+                    case UPARROW: box = navigate(a[3][3], box, player, UPARROW);
+                    case UPARROW: box = navigate(a[3][3], box, player, UPARROW);
+                    case QUIT : quit = 1; break;
             }
         }
+
+        }
+    }
+{
+        
         if(quit) break;
         if(chance === 0){
             putintobox(arr,box,'O');
             box = 1;
         }
-        else if(chance === 1){
+        else if(chance == 1){
             putintobox(arr,box,'X');
             box = 1;
         }
-        if((win = checkforwin(arr))===1){
+        if((win = checkforwin(arr))==1){
             winner = chance;
-            if(chance === 1){
+            if(chance == 1){
                 chance = 0;
             }
             else chance = 1;
@@ -268,7 +313,7 @@ int main(){
         enter = 0;
         turns++;
         if(!boxesleft(arr)){
-            movefinished = 1;
+            movesfinished = 1;
         }
         if(!win) && (turns == 9) && (movesfinished){
             break;
