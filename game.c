@@ -85,7 +85,7 @@ void showframe(int posx, int posy){
 void showbox(char ch, int box){
     switch(box){
         case 1: gotoxy(_x+1,_y-1); printf("%c", ch); break; // 1st box
-        case 2: gotoxy(_x+5, _y-1); printf("%c", ch); break; // 2nd box
+        case 2: gotoxy(_x+5,_y-1); printf("%c", ch); break; // 2nd box
         case 3: gotoxy(_x+9,_y-1); printf("%c", ch); break; // 3rd
         case 4: gotoxy(_x+1,_y+1); printf("%c", ch); break; // 4th
         case 5: gotoxy(_x+5,_y+1); printf("%c", ch); break; //5th
@@ -292,7 +292,7 @@ int main(){
 
         }
     }
-{
+
         
         if(quit) break;
         if(chance === 0){
