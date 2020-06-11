@@ -81,6 +81,16 @@ void showframe(int posx, int posy){
 
 }
 
+void fillrandom(char arr[3][3]){
+    int i = 0, j = 0;
+    char ch="A";
+    for(i=0;i<3;i++){
+        for(j=0;j<3;j++){
+            arr[i][j] = ch; ch++;
+        }
+    }
+}
+
 //Function to show the character in the specified box
 void showbox(char ch, int box){
     switch(box){
